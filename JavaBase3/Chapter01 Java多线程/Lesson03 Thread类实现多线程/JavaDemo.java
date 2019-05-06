@@ -2,8 +2,8 @@
 	如果想在Java中实现多线程的定义，那么就需要一个专门的线程的主题类进行线程得到定义。
 
 	继承Thread 类实现多线程：
-		Java里提供有一个java.lang.Thread的程序类，那么一个类只需要继承此类就表示这个类就可以直线实现多线程处理了，因为还需覆写
-	Thread类中提供的一个run()方法，  duo
+		Java里提供有一个java.lang.Thread的程序类，那么一个类只需要继承此类就表示这个类就可以直接实现多线程处理了，因为还需覆写
+	Thread类中提供的一个run()方法，  
 	class MyThread extends Thread {   //线程的主体类，
 		private String title;
 		public MyThread(String title){
@@ -26,11 +26,12 @@
 			public static void main(String[] args) {
 				// MyThread myThread = new MyThread("我创建的第一个线程");
 				// myThread.run() ;
-				/*线程按顺序执行
+				 如下是线程按顺序执行，这个方法不对
 				//new MyThread("线程A").run();
 				//new MyThread("线程B").run();
 				//new MyThread("线程C").run();    
 				
+				如下是线程抢占是并发运行
 				new MyThread("线程A").start​();
 				new MyThread("线程B").start​();
 				new MyThread("线程C").start​();
@@ -40,7 +41,7 @@
 		}
 
 		通过此时调用你可以发现，虽然调用了是start()方法，但最终执行的是run()方法，并且所有线程是交替执行的，执行
-		顺序不可控，完全有自己来决定。为什么不直接用run() 而必须使用start()方法呢？
+		顺序不可控，完全有操作系统自己来决定。为什么不直接用run() 而必须使用start()方法呢？
 
 		最好查看start()方法去观察start的实现。
 		
@@ -84,7 +85,7 @@
 		JNI  (Java Native Interface "java本地接口")， 利用这项技术可以使用操作系统的底层函数进行特殊处理，而在
 	Thread类里面提供的start0()就表示需要将此方法依赖于不同的操作系统实现。
 
-		start0()是有JVM去根据不同操作系统的资源调度算法去实现的。 操作系统都有提供底层的资源调度函数(Native 函数)
+		start0()是由JVM去根据不同操作系统的资源调度算法去实现的。 操作系统都有提供底层的资源调度函数(Native 函数)
 
 
 		任何情况下，只要定义了多线程，多线程启动永远只有一种方案， 继承Thread类的子类的start()方法。
